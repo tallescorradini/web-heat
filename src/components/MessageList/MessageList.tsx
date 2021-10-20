@@ -1,26 +1,39 @@
-import styles from "./MessageList.module.scss";
+import { useEffect, useState } from "react";
 
+import styles from "./MessageList.module.scss";
 import logoImg from "../../assets/logo.svg";
+import { api } from "../../services/api";
+
+type Message = {
+  id: string;
+  text: string;
+  user: {
+    name: string;
+    avatar_url: string;
+  };
+};
 
 export function MessageList() {
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  useEffect(() => {
+    api.get<Message[]>("messages/last3").then((response) => {
+      setMessages(response.data);
+    });
+  }, []);
+
   return (
     <div className={styles.messageListWrapper}>
       <img src={logoImg} alt="DoWhile 2021" />
       <ul className={styles.messageList}>
-        {[1, 2, 3].map((key) => (
-          <li className={styles.message}>
-            <p className={styles.MessageContent}>
-              Não vejo a hora de começar esse evento, com certeza vai ser o
-              melhor de todos os tempos, vamooo pra cima! 🔥🔥
-            </p>
+        {messages.map((message) => (
+          <li key={message.id} className={styles.message}>
+            <p className={styles.MessageContent}>{message.text}</p>
             <div className={styles.messageUser}>
               <div className={styles.userImage}>
-                <img
-                  src="https://github.com/tallescorradini.png"
-                  alt="Talles Corradini"
-                />
+                <img src={message.user.avatar_url} alt={message.user.name} />
               </div>
-              <span>Talles Corradini</span>
+              <span>{message.user.name}</span>
             </div>
           </li>
         ))}
