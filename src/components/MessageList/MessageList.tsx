@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 import styles from "./MessageList.module.scss";
-import logoImg from "../../assets/logo.svg";
 import { api } from "../../services/api";
 
 type Message = {
@@ -45,7 +44,6 @@ export function MessageList() {
 
   return (
     <div className={styles.messageListWrapper}>
-      <img src={logoImg} alt="DoWhile 2021" />
       <ul className={styles.messageList}>
         {messages.map((message) => (
           <li key={message.id} className={styles.message}>

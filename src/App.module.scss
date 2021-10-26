@@ -1,11 +1,25 @@
-.contentWrapper {
-  max-width: 1200px;
-  height: 100vh;
-  margin: 0 auto;
+.pageWrapper {
+  position: relative;
 
-  display: grid;
-  grid-template-columns: 1fr 453px;
-  column-gap: 120px;
+  margin: 0 1rem;
+
+  @media only screen and (min-width: 600px) {
+    margin: 0 2rem;
+  }
+
+  > * {
+    display: grid;
+    grid-template-columns: 1fr 453px;
+    column-gap: 120px;
+
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+}
+
+.contentWrapper {
+  height: 100vh;
+
   position: relative;
 }
 
